@@ -1,0 +1,6 @@
+[package]
+name = "skylink"
+version = "0.1.0"
+authors = ["misoton665 <misoton998@gmail.com>"]
+
+[dependencies]
