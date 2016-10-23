@@ -21,11 +21,6 @@ fn main() {
 
   println!("p: {}", &p[0]);
 
-  let kat = katsuo("mon");
-  let o = kat.maguro();
-
-  println!("kat: {}", o);
-
   let result = command::runCommand(env::args());
 
   println!("result: {}", result.is_success);
