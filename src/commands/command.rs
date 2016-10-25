@@ -23,8 +23,11 @@ impl CommandRunner {
 }
 
 pub fn run_command(commandline_args: Args) -> CommandResult {
-  if commandline_args.len() == 1 {
-    return CommandResult::new(false)
+  // コマンドライン引数の1つ目はファイル名。
+  // なのでコマンドに実行には最低で2つ以上必要。
+  if commandline_args.len() <= 1 {
+    let no_command = Command::NoCommand;
+    return CommandRunner::run(&no_command)
   }
 
   let args_vec = commandline_args.skip(1).collect::<Vec<String>>();
