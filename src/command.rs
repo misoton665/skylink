@@ -2,10 +2,12 @@ use std::env::Args;
 
 use common::SStr;
 
-type CommandArgs = &'static [String];
+type CommandArgs<'a> = &'a [String];
 
 fn runFindCommand(args: CommandArgs) -> CommandResult {
+  println!("find command");
   if args.len() == 0 {
+    println!("find command was called, but argument is nothing!!!!!");
     CommandResult::new(false)
   } else {
     CommandResult::new(true)
@@ -17,12 +19,15 @@ fn runHelp() -> CommandResult {
   CommandResult::new(true)
 }
 
-fn selectCommand(name: &str, args: &[String]) -> Command {
-  Command::NoCommand
+fn selectCommand<'a>(name: &str, args: &'a [String]) -> Command<'a> {
+  match name {
+    "find" => Command::FindCommand(args),
+    _ => Command::NoCommand,
+  }
 }
 
-pub enum Command {
-  FindCommand(CommandArgs),
+pub enum Command<'a> {
+  FindCommand(CommandArgs<'a>),
   NoCommand,
 }
 
@@ -56,8 +61,6 @@ pub fn runCommand(commandline_args: Args) -> CommandResult {
   let args_vec = commandline_args.skip(1).collect::<Vec<String>>();
   let (name, args) = args_vec.split_at(1);
   let command = selectCommand(&name[0], &args);
-
-  println!("name: {}", &args.len());
 
   CommandRunner::run(&command)
 }
