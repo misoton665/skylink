@@ -1,18 +1,8 @@
 use std::env::Args;
 
-use common::SStr;
-
-type CommandArgs<'a> = &'a [String];
-
-fn runFindCommand(args: CommandArgs) -> CommandResult {
-  println!("find command");
-  if args.len() == 0 {
-    println!("find command was called, but argument is nothing!!!!!");
-    CommandResult::new(false)
-  } else {
-    CommandResult::new(true)
-  }
-}
+use common::*;
+use commands::find_command::*;
+use commands::command_common::*;
 
 fn runHelp() -> CommandResult {
   println!("This is Help.");
@@ -23,21 +13,6 @@ fn selectCommand<'a>(name: &str, args: &'a [String]) -> Command<'a> {
   match name {
     "find" => Command::FindCommand(args),
     _ => Command::NoCommand,
-  }
-}
-
-pub enum Command<'a> {
-  FindCommand(CommandArgs<'a>),
-  NoCommand,
-}
-
-pub struct CommandResult {
-  pub is_success: bool,
-}
-
-impl CommandResult {
-  fn new(is_success: bool) -> CommandResult {
-    CommandResult{ is_success: is_success }
   }
 }
 

@@ -3,7 +3,7 @@ extern crate skylink;
 use std::env;
 
 use skylink::link::Link;
-use skylink::command;
+use skylink::commands::command;
 
 fn main() {
   let l = Link::new("pom", "hom", false);
