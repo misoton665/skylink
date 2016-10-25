@@ -1,6 +1,7 @@
 use std::env::Args;
 
 use commands::find_command::*;
+use commands::add_command::*;
 use commands::command_common::*;
 
 fn run_help() -> CommandResult {
@@ -11,6 +12,7 @@ fn run_help() -> CommandResult {
 fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
   match name {
     "find" => Command::FindCommand(args),
+    "add" => Command::AddCommand(args),
     _ => Command::NoCommand,
   }
 }
@@ -22,6 +24,7 @@ impl CommandRunner {
   fn run(command: &Command) -> CommandResult {
     match *command {
       Command::FindCommand(args) => run_find_command(args),
+      Command::AddCommand(args) => run_add_command(args),
       Command::NoCommand => run_help(),
     }
   }

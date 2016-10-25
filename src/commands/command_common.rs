@@ -2,6 +2,7 @@ pub type CommandArgs<'a> = &'a [String];
 
 pub enum Command<'a> {
   FindCommand(CommandArgs<'a>),
+  AddCommand(CommandArgs<'a>),
   NoCommand,
 }
 
@@ -13,4 +14,8 @@ impl CommandResult {
   pub fn new(is_success: bool) -> CommandResult {
     CommandResult{ is_success: is_success }
   }
+}
+
+macro_rules! command_result {
+  ($v:expr) => (CommandResult::new($v));
 }
