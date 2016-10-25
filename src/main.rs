@@ -6,7 +6,7 @@ use skylink::commands::command;
 
 fn main() {
 
-  let result = command::runCommand(env::args());
+  let result = command::run_command(env::args());
 
   println!("result: {}", result.is_success);
 }
