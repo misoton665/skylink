@@ -9,15 +9,7 @@ fn run_help() -> CommandResult {
   CommandResult::new(true)
 }
 
-fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
-  match name {
-    "find" => Command::FindCommand(args),
-    "add" => Command::AddCommand(args),
-    _ => Command::NoCommand,
-  }
-}
-
-pub struct CommandRunner;
+struct CommandRunner;
 
 impl CommandRunner {
 

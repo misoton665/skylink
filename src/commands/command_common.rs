@@ -16,6 +16,14 @@ impl CommandResult {
   }
 }
 
+fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
+  match name {
+    "find" => Command::FindCommand(args),
+    "add" => Command::AddCommand(args),
+    _ => Command::NoCommand,
+  }
+}
+
 macro_rules! command_result {
   ($v:expr) => (CommandResult::new($v));
 }
