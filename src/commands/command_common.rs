@@ -16,7 +16,7 @@ impl CommandResult {
   }
 }
 
-fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
+pub fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
   match name {
     "find" => Command::FindCommand(args),
     "add" => Command::AddCommand(args),
