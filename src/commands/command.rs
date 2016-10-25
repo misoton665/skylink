@@ -1,38 +1,29 @@
-use std::env::Args;
+pub type CommandArgs<'a> = &'a [String];
 
-use commands::find_command::*;
-use commands::add_command::*;
-use commands::command_common::*;
-
-fn run_help() -> CommandResult {
-  println!("This is Help.");
-  CommandResult::new(true)
+pub enum Command<'a> {
+  FindCommand(CommandArgs<'a>),
+  AddCommand(CommandArgs<'a>),
+  NoCommand,
 }
 
-struct CommandRunner;
+pub struct CommandResult {
+  pub is_success: bool,
+}
 
-impl CommandRunner {
-
-  fn run(command: &Command) -> CommandResult {
-    match *command {
-      Command::FindCommand(args) => run_find_command(args),
-      Command::AddCommand(args) => run_add_command(args),
-      Command::NoCommand => run_help(),
-    }
+impl CommandResult {
+  pub fn new(is_success: bool) -> CommandResult {
+    CommandResult{ is_success: is_success }
   }
 }
 
-pub fn run_command(commandline_args: Args) -> CommandResult {
-  // コマンドライン引数の1つ目はファイル名。
-  // なのでコマンドに実行には最低で2つ以上必要。
-  if commandline_args.len() <= 1 {
-    let no_command = Command::NoCommand;
-    return CommandRunner::run(&no_command)
+pub fn select_command<'a>(name: &str, args: &'a [String]) -> Command<'a> {
+  match name {
+    "find" => Command::FindCommand(args),
+    "add" => Command::AddCommand(args),
+    _ => Command::NoCommand,
   }
+}
 
-  let args_vec = commandline_args.skip(1).collect::<Vec<String>>();
-  let (name, args) = args_vec.split_at(1);
-  let command = select_command(&name[0], &args);
-
-  CommandRunner::run(&command)
+macro_rules! command_result {
+  ($v:expr) => (CommandResult::new($v));
 }

@@ -1,7 +1,7 @@
-pub mod command;
+pub mod command_runner;
 
 #[macro_use]
-mod command_common;
+mod command;
 
 mod find_command;
 

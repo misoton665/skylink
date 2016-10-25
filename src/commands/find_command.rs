@@ -1,4 +1,4 @@
-use commands::command_common::*;
+use commands::command::*;
 
 pub fn run_find_command(args: CommandArgs) -> CommandResult {
   println!("find command");
