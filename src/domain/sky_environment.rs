@@ -22,7 +22,7 @@ impl SkyEnvironment {
   }
 
   pub fn find_link(&self, id: &'static str) -> Option<&Link> {
-    for l in self.links.iter() {
+    for l in &self.links {
       if l.id == id {
         return Some(l)
       }

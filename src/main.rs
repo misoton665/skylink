@@ -3,8 +3,6 @@ extern crate skylink;
 use std::env;
 
 use skylink::commands::command_runner;
-use skylink::domain::sky_environment::*;
-use skylink::domain::link::*;
 
 fn main() {
 
