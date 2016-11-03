@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Link {
   pub id: &'static str,
   pub path: &'static str,

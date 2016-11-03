@@ -1,6 +1,6 @@
 use domain::link::Link;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct SkyEnvironment {
   links: Vec<Link>,
 }
@@ -29,4 +29,43 @@ impl SkyEnvironment {
     }
     None
   }
+}
+
+#[test]
+fn test_find_empty_env() {
+  let sky_env = SkyEnvironment::empty_env();
+
+  let some_link: Option<&Link> = sky_env.find_link("some");
+
+  debug_assert_eq!(some_link, None);
+}
+
+#[test]
+fn test_find_and_add_link() {
+  let mut sky_env = SkyEnvironment::empty_env();
+
+  let test_link_name = "test";
+
+  let test_link = Link::new(test_link_name, "/test/path", false);
+
+  sky_env.add_link(test_link);
+
+  let some_link = sky_env.find_link(test_link_name);
+
+  debug_assert_eq!(some_link.is_some(), true);
+}
+
+#[test]
+fn test_add_and_delete_link() {
+  let mut sky_env = SkyEnvironment::empty_env();
+
+  let test_link_name = "test";
+
+  let test_link = Link::new(test_link_name, "/test/path", false);
+
+  sky_env.add_link(test_link);
+
+  sky_env.delete_link(test_link_name);
+
+  debug_assert_eq!(sky_env.find_link(test_link_name).is_none(), true);
 }
