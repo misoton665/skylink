@@ -1,6 +1,6 @@
 use domain::link::Link;
 
-#[derive(Clone, Debug)]
+#[derive(RustcDecodable, RustcEncodable, Clone, Debug, PartialEq)]
 pub struct SkyEnvironment {
   links: Vec<Link>,
 }
