@@ -2,6 +2,7 @@ use std::env::Args;
 
 use commands::find_command::*;
 use commands::add_command::*;
+use commands::init_command::*;
 use commands::command::*;
 
 fn run_help() -> CommandResult {
@@ -17,6 +18,7 @@ impl CommandRunner {
     match *command {
       Command::FindCommand(args) => run_find_command(args),
       Command::AddCommand(args) => run_add_command(args),
+      Command::InitCommand => run_init_command(),
       Command::NoCommand => run_help(),
     }
   }
