@@ -7,7 +7,7 @@ use super::rustc_serialize::{Decodable, Encodable};
 
 pub fn read_data<T>(file_path: &str) -> T where T: Decodable {
   let mut reader = BufReader::new(File::open(file_path).expect(format!("File \"{}\" is not found.", file_path).as_str()));
-  let decoded: T = decode_from(&mut reader, SizeLimit::Infinite).unwrap();
+  let decoded: T = decode_from(&mut reader, SizeLimit::Infinite).expect(format!("File decoding error.").as_str());
   return decoded;
 }
 
